@@ -82,8 +82,8 @@ export default function Analytics() {
 
                 {/* Section 2: Pricing Deep Dive (New) */}
                 <section className="space-y-6">
-                    <div className="border-b border-slate-200 pb-5">
-                        <h2 className="text-2xl font-bold leading-7 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                    <div className="border-b border-slate-300 pb-5">
+                        <h2 className="text-2xl font-bold leading-10 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
                             Pricing Deep Dive
                         </h2>
                         <p className="mt-2 text-sm text-slate-500">Advanced analysis on demand elasticity and category performance.</p>
