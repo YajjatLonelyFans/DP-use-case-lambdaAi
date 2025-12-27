@@ -119,3 +119,84 @@ export const generateProductData = (count = 20) => {
     }
     return products;
 };
+
+// --- Analytics Data ---
+
+// Demand Elasticity (Price vs Qty)
+export const generateElasticityData = () => {
+    const points = [];
+    // Demand Curve: P = a - bQ (Linear approximation for simplicity)
+    // P = 200 - 0.5Q
+    for (let q = 50; q <= 350; q += 20) {
+        const basePrice = 200 - (0.5 * q);
+        // Add some noise
+        const price = Math.max(10, basePrice + (Math.random() * 20 - 10));
+        points.push({
+            qty: q,
+            price: parseFloat(price.toFixed(2)),
+            // Optimized point typically where Revenue (P*Q) is maximized or specific elasticity = -1
+            isOptimized: q === 190,
+        });
+    }
+    return points.sort((a, b) => a.qty - b.qty);
+};
+
+// Pricing Performance Stats
+export const generatePerformanceStats = () => {
+    return [
+        {
+            id: 'win-rate',
+            label: 'Buy Box Win Rate',
+            value: '84%',
+            change: '+2.1%',
+            trend: 'up',
+            description: 'Percentage of time winning the buy box.',
+        },
+        {
+            id: 'markdown-efficiency',
+            label: 'Markdown Efficiency',
+            value: 92.5,
+            type: 'currency', // treated as currency for now, or just a score? Let's use currency context if it's monetary saving, else plain. 
+            // Actually usually a % or ratio. Let's make it a "Revenue Saved" metric.
+            label: 'Revenue Saved (Markdown)',
+            value: 4500,
+            type: 'currency',
+            change: '+12%',
+            trend: 'up',
+            description: 'Revenue retained by optimizing markdowns.',
+        },
+        {
+            id: 'competitor-price-idx',
+            label: 'Price Index vs Competitors',
+            value: '98.5',
+            change: '-0.5',
+            trend: 'down',
+            isInverse: true, // Lower is better (more competitive) if strategy is leadership, but usually 100 is parity.
+            // Let's say "Margin Expansion" instead
+            label: 'Margin Expansion',
+            value: '1.8%',
+            change: '+0.3%',
+            trend: 'up',
+            description: 'Increase in margin points due to dynamic pricing.',
+        },
+        {
+            id: 'avg-discount',
+            label: 'Avg Discount Depth',
+            value: '14%',
+            change: '-2%',
+            trend: 'up', // Lower discount is better for retailer usually
+            isInverse: true,
+            description: 'Average reduction from list price.',
+        },
+    ];
+};
+
+// Category Performance
+export const generateCategoryPerformance = () => {
+    return [
+        { category: 'Electronics', revenue: 45000, margin: 18, growth: 12 },
+        { category: 'Fashion', revenue: 32000, margin: 45, growth: 8 },
+        { category: 'Home', revenue: 28000, margin: 35, growth: 15 },
+        { category: 'Sports', revenue: 19500, margin: 25, growth: 5 },
+    ];
+};
