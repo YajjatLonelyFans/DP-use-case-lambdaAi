@@ -7,6 +7,7 @@ import RevenueChart from '../components/charts/RevenueChart';
 import InventoryChart from '../components/charts/InventoryChart';
 import ProductsTable from '../components/tables/ProductsTable';
 import { useDashboardMetrics } from '../data/useDashboardData';
+import { useCurrency } from '../context/CurrencyContext';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -29,7 +30,8 @@ const itemVariants = {
 };
 
 export default function Dashboard() {
-    const { data, isLoading, error } = useDashboardMetrics();
+    const { currency } = useCurrency();
+    const { data, isLoading, error } = useDashboardMetrics(currency);
 
     if (isLoading) {
         return (

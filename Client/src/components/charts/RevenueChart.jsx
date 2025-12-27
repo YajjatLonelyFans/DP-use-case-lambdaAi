@@ -56,6 +56,10 @@ export default function RevenueChart({ data }) {
                         <Tooltip
                             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                             itemStyle={{ fontSize: '13px' }}
+                            formatter={(value, name) => [
+                                name === 'Revenue' ? formatCurrency(value) : `${value}%`,
+                                name
+                            ]}
                         />
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
 

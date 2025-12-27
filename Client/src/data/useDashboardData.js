@@ -4,9 +4,9 @@ import { generateKPIData, generateSalesData, generateInventoryData, generateProd
 // Simulated API delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const useDashboardMetrics = () => {
+export const useDashboardMetrics = (currency) => {
     return useQuery({
-        queryKey: ['dashboardMetrics'],
+        queryKey: ['dashboardMetrics', currency],
         queryFn: async () => {
             await delay(800); // Simulate network latency
             return {
