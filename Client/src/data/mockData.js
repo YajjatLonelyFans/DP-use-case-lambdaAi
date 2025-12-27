@@ -13,7 +13,8 @@ export const generateKPIData = () => {
         {
             id: 'revenue-uplift',
             label: 'Revenue Uplift',
-            value: '$124.5k',
+            value: 124500,
+            type: 'currency',
             change: '+8.1%',
             trend: 'up',
             description: 'Incremental revenue vs baseline pricing.',
@@ -29,7 +30,8 @@ export const generateKPIData = () => {
         {
             id: 'avg-order-value',
             label: 'Avg Order Value (AOV)',
-            value: '$85.20',
+            value: 85.20,
+            type: 'currency',
             change: '+1.2%',
             trend: 'up',
             description: 'Average spend per checkout.',

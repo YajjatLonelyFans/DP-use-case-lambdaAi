@@ -10,15 +10,17 @@ import {
     UsersIcon
 } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
+import { useCurrency } from '../../context/CurrencyContext';
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Inventory', href: '#', icon: CubeIcon, current: false },
-    { name: 'Pricing Engine', href: '#', icon: CurrencyDollarIcon, current: false },
-    { name: 'Customers', href: '#', icon: UsersIcon, current: false },
-    { name: 'Promotions', href: '#', icon: TagIcon, current: false },
-    { name: 'Analytics', href: '#', icon: ChartBarIcon, current: false },
-    { name: 'Reports', href: '#', icon: DocumentChartBarIcon, current: false },
+    { name: 'Dashboard', href: '/', icon: HomeIcon },
+    { name: 'Inventory', href: '/inventory', icon: CubeIcon },
+    { name: 'Pricing Engine', href: '/pricing', icon: CurrencyDollarIcon },
+    { name: 'Customers', href: '/customers', icon: UsersIcon },
+    { name: 'Promotions', href: '/promotions', icon: TagIcon },
+    { name: 'Analytics', href: '/analytics', icon: ChartBarIcon },
+    { name: 'Reports', href: '/reports', icon: DocumentChartBarIcon },
 ];
 
 function classNames(...classes) {
@@ -26,6 +28,9 @@ function classNames(...classes) {
 }
 
 export default function Sidebar() {
+    const location = useLocation();
+    const { formatCurrency } = useCurrency();
+
     return (
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-slate-900 px-6 pb-4 shadow-xl">
@@ -52,10 +57,10 @@ export default function Sidebar() {
                                         whileHover={{ x: 4 }}
                                         transition={{ type: 'spring', stiffness: 300 }}
                                     >
-                                        <a
-                                            href={item.href}
+                                        <Link
+                                            to={item.href}
                                             className={classNames(
-                                                item.current
+                                                location.pathname === item.href
                                                     ? 'bg-slate-800 text-white shadow-md shadow-slate-900/10'
                                                     : 'text-slate-400 hover:text-white hover:bg-slate-800/50',
                                                 'group flex gap-x-3 rounded-lg p-2.5 text-sm leading-6 font-medium transition-all duration-200 ease-in-out'
@@ -63,13 +68,13 @@ export default function Sidebar() {
                                         >
                                             <item.icon
                                                 className={classNames(
-                                                    item.current ? 'text-indigo-400' : 'text-slate-500 group-hover:text-indigo-400',
+                                                    location.pathname === item.href ? 'text-indigo-400' : 'text-slate-500 group-hover:text-indigo-400',
                                                     'h-5 w-5 shrink-0'
                                                 )}
                                                 aria-hidden="true"
                                             />
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     </motion.li>
                                 ))}
                             </ul>
@@ -82,21 +87,21 @@ export default function Sidebar() {
                                     <div className="bg-indigo-500 h-1.5 rounded-full" style={{ width: '75%' }}></div>
                                 </div>
                                 <div className="flex justify-between text-xs text-white">
-                                    <span>$124k</span>
-                                    <span className="text-slate-400">Target: $160k</span>
+                                    <span>{formatCurrency(124000)}</span>
+                                    <span className="text-slate-400">Target: {formatCurrency(160000)}</span>
                                 </div>
                             </div>
 
-                            <a
-                                href="#"
-                                className="group -mx-2 flex gap-x-3 rounded-lg p-2.5 text-sm font-semibold leading-6 text-slate-300 hover:bg-slate-800 hover:text-white"
+                            <Link
+                                to="/settings"
+                                className={`group -mx-2 flex gap-x-3 rounded-lg p-2.5 text-sm font-semibold leading-6 ${location.pathname === '/settings' ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
                             >
                                 <Cog6ToothIcon
-                                    className="h-5 w-5 shrink-0 text-slate-500 group-hover:text-white"
+                                    className={`h-5 w-5 shrink-0 ${location.pathname === '/settings' ? 'text-white' : 'text-slate-500 group-hover:text-white'}`}
                                     aria-hidden="true"
                                 />
                                 Settings
-                            </a>
+                            </Link>
                             <div className="h-px bg-slate-700/50 my-2 mx-[-8px]" />
                             <a
                                 href="#"

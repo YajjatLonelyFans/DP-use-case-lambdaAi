@@ -2,8 +2,11 @@ import React from 'react';
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, ComposedChart, Legend
 } from 'recharts';
+import { useCurrency } from '../../context/CurrencyContext';
 
 export default function RevenueChart({ data }) {
+    const { formatCurrency } = useCurrency();
+
     if (!data) return <div className="h-72 flex items-center justify-center text-gray-400">Loading Chart...</div>;
 
     return (
@@ -38,7 +41,7 @@ export default function RevenueChart({ data }) {
                             axisLine={false}
                             tickLine={false}
                             tick={{ fill: '#6b7280', fontSize: 12 }}
-                            tickFormatter={(value) => `$${value / 1000}k`}
+                            tickFormatter={(value) => formatCurrency(value)}
                         />
                         {/* Right Axis: Margin (%) */}
                         <YAxis

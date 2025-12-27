@@ -1,13 +1,15 @@
 import React from 'react';
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/20/solid';
 import { motion } from 'framer-motion';
+import { useCurrency } from '../../context/CurrencyContext';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function KPICard({ kpi }) {
-    const { label, value, change, trend, isInverse, description } = kpi;
+    const { label, value, change, trend, isInverse, description, type } = kpi;
+    const { formatCurrency } = useCurrency();
 
     const isPositiveOutcome = isInverse
         ? trend === 'down'
@@ -27,7 +29,9 @@ export default function KPICard({ kpi }) {
         >
             <dt className="truncate text-sm font-medium text-slate-500">{label}</dt>
             <dd className="mt-3 flex items-baseline justify-between">
-                <span className="text-3xl font-bold tracking-tight text-slate-900">{value}</span>
+                <span className="text-3xl font-bold tracking-tight text-slate-900">
+                    {type === 'currency' ? formatCurrency(value) : value}
+                </span>
                 <span className={classNames(trendColor, 'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset')}>
                     <TrendIcon className="mr-1 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     {change}

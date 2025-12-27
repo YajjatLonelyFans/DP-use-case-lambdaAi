@@ -6,6 +6,7 @@ import {
     flexRender,
     createColumnHelper,
 } from '@tanstack/react-table';
+import { useCurrency } from '../../context/CurrencyContext';
 import { ChevronUpIcon, ChevronDownIcon, ArrowsUpDownIcon } from '@heroicons/react/20/solid';
 
 const columnHelper = createColumnHelper();
@@ -25,6 +26,7 @@ const StatusBadge = ({ status }) => {
 
 export default function ProductsTable({ data }) {
     const [sorting, setSorting] = useState([]);
+    const { formatCurrency } = useCurrency();
 
     const columns = useMemo(() => [
         columnHelper.accessor('name', {
@@ -37,7 +39,7 @@ export default function ProductsTable({ data }) {
         }),
         columnHelper.accessor('price', {
             header: 'Price',
-            cell: info => `$${info.getValue().toFixed(2)}`,
+            cell: info => formatCurrency(info.getValue()),
         }),
         columnHelper.accessor('margin', {
             header: 'Margin %',
@@ -55,7 +57,7 @@ export default function ProductsTable({ data }) {
             header: 'Status',
             cell: info => <StatusBadge status={info.getValue()} />,
         }),
-    ], []);
+    ], [formatCurrency]);
 
     const table = useReactTable({
         data: data || [],
