@@ -200,3 +200,69 @@ export const generateCategoryPerformance = () => {
         { category: 'Sports', revenue: 19500, margin: 25, growth: 5 },
     ];
 };
+
+// --- Pricing Engine Data ---
+export const generatePricingRules = () => {
+    return [
+        { id: 1, name: 'Competitor Match', status: 'Active', logic: 'If Competitor < MyPrice, Set MyPrice = Competitor', products: 145 },
+        { id: 2, name: 'Clearance', status: 'Active', logic: 'If StockAge > 90 Days, Markdown 20%', products: 32 },
+        { id: 3, name: 'High Demand Uplift', status: 'Paused', logic: 'If Velocity is High, Increase Price 2%', products: 0 },
+        { id: 4, name: 'Flash Sale (Electronics)', status: 'Scheduled', logic: 'Set Margin = 10% for Category Electronics', products: 50 },
+    ];
+};
+
+export const generatePricingActions = () => {
+    return [
+        { id: 1, product: 'Wireless Headphones', oldPrice: 150, newPrice: 145, diff: -5, trigger: 'Competitor Match', time: '2 mins ago' },
+        { id: 2, product: 'Running Shoes', oldPrice: 85, newPrice: 89, diff: 4, trigger: 'Dynamic Demand', time: '15 mins ago' },
+        { id: 3, product: '4K Monitor', oldPrice: 320, newPrice: 299, diff: -21, trigger: 'Price War', time: '1 hour ago' },
+        { id: 4, product: 'Winter Jacket', oldPrice: 120, newPrice: 95, diff: -25, trigger: 'Clearance Rule', time: '2 hours ago' },
+    ];
+};
+
+// --- Inventory Data ---
+export const generateInventoryStats = () => {
+    return [
+        { label: 'Total Stock Value', value: 450000, type: 'currency' },
+        { label: 'Low Stock Alerts', value: 12, type: 'number', isAlert: true },
+        { label: 'Overstock Items', value: 8, type: 'number' },
+        { label: 'Inventory Turnover', value: '4.2x', type: 'text' },
+    ];
+};
+
+// --- Promotions Data ---
+export const generatePromotions = () => {
+    return [
+        {
+            id: 1,
+            name: 'Summer Kickoff',
+            code: 'SUMMER25',
+            type: 'Percentage Off',
+            value: 20,
+            status: 'Active',
+            revenue: 15600,
+            usage: 234
+        },
+        {
+            id: 2,
+            name: 'New User Bonus',
+            code: 'WELCOME10',
+            type: 'Flat Discount',
+            value: 10,
+            isCurrency: true,
+            status: 'Active',
+            revenue: 8400,
+            usage: 840
+        },
+        {
+            id: 3,
+            name: 'Bundle Deal (Tech)',
+            code: 'TECHBUNDLE',
+            type: 'Buy X Get Y',
+            value: 0,
+            status: 'Scheduled',
+            revenue: 0,
+            usage: 0
+        },
+    ];
+};

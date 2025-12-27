@@ -6,7 +6,11 @@ import {
     generateProductData,
     generateElasticityData,
     generatePerformanceStats,
-    generateCategoryPerformance
+    generateCategoryPerformance,
+    generatePricingRules,
+    generatePricingActions,
+    generateInventoryStats,
+    generatePromotions
 } from './mockData';
 
 // Simulated API delay
@@ -37,6 +41,47 @@ export const useAnalyticsData = (currency) => {
                 elasticity: generateElasticityData(),
                 performance: generatePerformanceStats(),
                 categoryPerformance: generateCategoryPerformance(),
+            };
+        },
+        staleTime: 1000 * 60 * 5,
+    });
+};
+
+export const usePricingData = (currency) => {
+    return useQuery({
+        queryKey: ['pricingData', currency],
+        queryFn: async () => {
+            await delay(600);
+            return {
+                rules: generatePricingRules(),
+                actions: generatePricingActions(),
+            };
+        },
+        staleTime: 1000 * 60 * 5,
+    });
+};
+
+export const useInventoryData = (currency) => {
+    return useQuery({
+        queryKey: ['inventoryData', currency],
+        queryFn: async () => {
+            await delay(600);
+            return {
+                stats: generateInventoryStats(),
+                products: generateProductData(30), // More items for inventory view
+            };
+        },
+        staleTime: 1000 * 60 * 5,
+    });
+};
+
+export const usePromotionsData = (currency) => {
+    return useQuery({
+        queryKey: ['promotionsData', currency],
+        queryFn: async () => {
+            await delay(600);
+            return {
+                promos: generatePromotions(),
             };
         },
         staleTime: 1000 * 60 * 5,
